@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sennn | Minimalistische Sieraden</title>
+    <style>
+        /* ZEN STYLING */
+        :root {
+            --bg-color: #f9f7f2;
+            --accent-color: #d4c3b3;
+            --text-color: #5a5a5a;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Optima', 'Segoe UI', serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigatie */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 10%;
+            background: rgba(249, 247, 242, 0.9);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            letter-spacing: 5px;
+            font-weight: 300;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links li {
+            cursor: pointer;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        .nav-links li:hover {
+            color: var(--accent-color);
+        }
+
+        /* Hero Sectie */
+        .hero {
+            height: 40vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            animation: fadeIn 2s ease-in;
+        }
+
+        .hero h1 {
+            font-weight: 200;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        /* Product Grid */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 50px;
+            margin-top: 40px;
+        }
+
+        .product-card {
+            background: var(--white);
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 2px;
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            border: 1px solid transparent;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+            border-color: var(--accent-color);
+        }
+
+        .product-category {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-weight: 300;
+        }
+
+        .price {
+            font-weight: 400;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        button {
+            background: none;
+            border: 1px solid var(--accent-color);
+            padding: 10px 25px;
+            color: var(--text-color);
+            cursor: pointer;
+            font-family: inherit;
+            transition: 0.4s;
+            letter-spacing: 1px;
+        }
+
+        button:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        /* Animaties */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        #cart-count {
+            background: var(--accent-color);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 50%;
+            font-size: 0.8rem;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">SENNN</div>
+        <ul class="nav-links">
+            <li onclick="filterProducts('all')">Alles</li>
+            <li onclick="filterProducts('ring')">Ringen</li>
+            <li onclick="filterProducts('armband')">Armbanden</li>
+            <li onclick="filterProducts('ketting')">Kettingen</li>
+        </ul>
+        <div class="cart">Mandje <span id="cart-count">0</span></div>
+    </nav>
+
+    <section class="hero">
+        <h1>Puurheid in elk detail</h1>
+        <p>Ervaar de stilte van handgemaakte schoonheid.</p>
+    </section>
+
+    <div class="container">
+        <div id="product-grid" class="grid">
+            <!-- Producten worden hier geladen door JS -->
+        </div>
+    </div>
+
+    <script>
+        // PRODUCT DATA
+        const producten = [
+            { id: 1, naam: "Aura Ring", type: "ring", prijs: 49.00 },
+            { id: 2, naam: "Zand Armband", type: "armband", prijs: 65.00 },
+            { id: 3, naam: "Licht Ketting", type: "ketting", prijs: 89.00 },
+            { id: 4, naam: "Echo Ring", type: "ring", prijs: 42.00 },
+            { id: 5, naam: "Mist Armband", type: "armband", prijs: 55.00 },
+            { id: 6, naam: "Oase Ketting", type: "ketting", prijs: 110.00 }
+        ];
+
+        let mandjeAantal = 0;
+
+        // FUNCTIE OM PRODUCTEN TE TONEN
+        function toonProducten(lijst) {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = ""; // Maak leeg
+
+            lijst.forEach((p, index) => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.style.animation = `fadeIn ${0.5 + index * 0.2}s ease forwards`;
+                
+                card.innerHTML = `
+                    <div class="product-category">${p.type}</div>
+                    <h3 class="product-title">${p.naam}</h3>
+                    <span class="price">€${p.prijs.toFixed(2)}</span>
+                    <button onclick="voegToe()">Toevoegen</button>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // FILTER FUNCTIE
+        function filterProducts(type) {
+            if (type === 'all') {
+                toonProducten(producten);
+            } else {
+                const gefilterd = producten.filter(p => p.type === type);
+                toonProducten(gefilterd);
+            }
+        }
+
+        // MANDJE FUNCTIE
+        function voegToe() {
+            mandjeAantal++;
+            document.getElementById('cart-count').innerText = mandjeAantal;
+        }
+
+        // INITIALISATIE
+        window.onload = () => {
+            toonProducten(producten);
+        };
+    </script>
+
+</body>
+</html>
