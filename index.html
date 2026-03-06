@@ -3,243 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sennn | Minimalistische Sieraden</title>
+    <title>Boang-Bague | Edelsteen Sieraden</title>
     <style>
-        /* ZEN STYLING */
         :root {
-            --bg-color: #f9f7f2;
-            --accent-color: #d4c3b3;
-            --text-color: #5a5a5a;
+            --bg: #fdfaf6; /* Zacht crème/wit voor zen gevoel */
+            --accent: #c5b4a2; /* Rustige zandkleur */
+            --text: #4a4a4a;
             --white: #ffffff;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Optima', 'Segoe UI', serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            overflow-x: hidden;
+            font-family: 'Georgia', serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.8;
         }
 
-        /* Navigatie */
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 30px 10%;
-            background: rgba(249, 247, 242, 0.9);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            padding: 40px 10%;
+            background: var(--bg);
+            letter-spacing: 2px;
         }
 
         .logo {
-            font-size: 1.5rem;
-            letter-spacing: 5px;
+            font-size: 1.8rem;
             font-weight: 300;
-            text-transform: uppercase;
+            text-transform: lowercase; /* Voor een zachtere look */
+            color: var(--accent);
         }
 
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 30px;
+            gap: 25px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
         }
 
-        .nav-links li {
-            cursor: pointer;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            transition: 0.3s;
-        }
+        .nav-links li { cursor: pointer; transition: 0.3s; }
+        .nav-links li:hover { color: var(--accent); }
 
-        .nav-links li:hover {
-            color: var(--accent-color);
-        }
-
-        /* Hero Sectie */
         .hero {
-            height: 40vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
             text-align: center;
-            animation: fadeIn 2s ease-in;
-        }
-
-        .hero h1 {
-            font-weight: 200;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            letter-spacing: 2px;
-        }
-
-        /* Product Grid */
-        .container {
-            max-width: 1100px;
+            padding: 60px 20px;
+            max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
         }
+
+        .hero h1 { font-weight: 200; font-size: 2.2rem; margin-bottom: 20px; }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 50px;
-            margin-top: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
         }
 
-        .product-card {
+        .card {
             background: var(--white);
             padding: 40px 20px;
             text-align: center;
-            border-radius: 2px;
-            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-            border: 1px solid transparent;
+            border-radius: 8px;
+            transition: 0.5s;
+            border: 1px solid #f0efeb;
         }
 
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
-            border-color: var(--accent-color);
-        }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.02); }
 
-        .product-category {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--accent-color);
-            margin-bottom: 10px;
-        }
-
-        .product-title {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            font-weight: 300;
-        }
-
-        .price {
-            font-weight: 400;
-            margin-bottom: 20px;
-            display: block;
-        }
+        .gem { font-size: 0.7rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; }
+        .name { font-size: 1.3rem; margin: 10px 0; font-weight: 300; }
+        .price { display: block; margin-bottom: 20px; font-style: italic; }
 
         button {
             background: none;
-            border: 1px solid var(--accent-color);
-            padding: 10px 25px;
-            color: var(--text-color);
+            border: 1px solid var(--accent);
+            padding: 8px 30px;
+            color: var(--text);
             cursor: pointer;
             font-family: inherit;
             transition: 0.4s;
-            letter-spacing: 1px;
         }
 
-        button:hover {
-            background: var(--accent-color);
-            color: white;
-        }
+        button:hover { background: var(--accent); color: white; }
 
-        /* Animaties */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        #cart-count { margin-left: 5px; font-weight: bold; color: var(--accent); }
 
-        #cart-count {
-            background: var(--accent-color);
-            color: white;
-            padding: 2px 8px;
-            border-radius: 50%;
-            font-size: 0.8rem;
-            margin-left: 5px;
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .fade { animation: fadeIn 1.5s; }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo">SENNN</div>
+        <div class="logo">boang-bague</div>
         <ul class="nav-links">
-            <li onclick="filterProducts('all')">Alles</li>
-            <li onclick="filterProducts('ring')">Ringen</li>
-            <li onclick="filterProducts('armband')">Armbanden</li>
-            <li onclick="filterProducts('ketting')">Kettingen</li>
+            <li onclick="filter('all')">Alles</li>
+            <li onclick="filter('ring')">Ringen</li>
+            <li onclick="filter('armband')">Armbanden</li>
+            <li onclick="filter('ketting')">Kettingen</li>
         </ul>
-        <div class="cart">Mandje <span id="cart-count">0</span></div>
+        <div>Mandje <span id="cart-count">0</span></div>
     </nav>
 
-    <section class="hero">
-        <h1>Puurheid in elk detail</h1>
-        <p>Ervaar de stilte van handgemaakte schoonheid.</p>
+    <section class="hero fade">
+        <h1>Natuurlijke Balans</h1>
+        <p>Ontdek onze collectie met zorgvuldig gekozen edelsteentjes.</p>
     </section>
 
-    <div class="container">
-        <div id="product-grid" class="grid">
-            <!-- Producten worden hier geladen door JS -->
-        </div>
-    </div>
+    <div id="shop" class="grid fade"></div>
 
     <script>
-        // PRODUCT DATA
         const producten = [
-            { id: 1, naam: "Aura Ring", type: "ring", prijs: 49.00 },
-            { id: 2, naam: "Zand Armband", type: "armband", prijs: 65.00 },
-            { id: 3, naam: "Licht Ketting", type: "ketting", prijs: 89.00 },
-            { id: 4, naam: "Echo Ring", type: "ring", prijs: 42.00 },
-            { id: 5, naam: "Mist Armband", type: "armband", prijs: 55.00 },
-            { id: 6, naam: "Oase Ketting", type: "ketting", prijs: 110.00 }
+            { naam: "Amethist Ring", type: "ring", prijs: 3, steen: "Lila Edelsteen" },
+            { naam: "Rozenkwarts Ketting", type: "ketting", prijs: 5, steen: "Roze Edelsteen" },
+            { naam: "Jade Armband", type: "armband", prijs: 4, steen: "Groene Edelsteen" },
+            { naam: "Maansteen Ring", type: "ring", prijs: 3, steen: "Witte Edelsteen" },
+            { naam: "Lapis Lazuli Ketting", type: "ketting", prijs: 5, steen: "Blauwe Edelsteen" },
+            { naam: "Tijgeroog Armband", type: "armband", prijs: 4, steen: "Bruine Edelsteen" }
         ];
 
-        let mandjeAantal = 0;
+        let count = 0;
 
-        // FUNCTIE OM PRODUCTEN TE TONEN
-        function toonProducten(lijst) {
-            const grid = document.getElementById('product-grid');
-            grid.innerHTML = ""; // Maak leeg
-
-            lijst.forEach((p, index) => {
-                const card = document.createElement('div');
-                card.className = 'product-card';
-                card.style.animation = `fadeIn ${0.5 + index * 0.2}s ease forwards`;
-                
-                card.innerHTML = `
-                    <div class="product-category">${p.type}</div>
-                    <h3 class="product-title">${p.naam}</h3>
-                    <span class="price">€${p.prijs.toFixed(2)}</span>
-                    <button onclick="voegToe()">Toevoegen</button>
+        function toon(lijst) {
+            const shop = document.getElementById('shop');
+            shop.innerHTML = "";
+            lijst.forEach(p => {
+                shop.innerHTML += `
+                    <div class="card">
+                        <div class="gem">${p.steen}</div>
+                        <div class="name">${p.naam}</div>
+                        <span class="price">€${p.prijs},-</span>
+                        <button onclick="add()">In Mandje</button>
+                    </div>
                 `;
-                grid.appendChild(card);
             });
         }
 
-        // FILTER FUNCTIE
-        function filterProducts(type) {
-            if (type === 'all') {
-                toonProducten(producten);
-            } else {
-                const gefilterd = producten.filter(p => p.type === type);
-                toonProducten(gefilterd);
-            }
+        function add() {
+            count++;
+            document.getElementById('cart-count').innerText = count;
         }
 
-        // MANDJE FUNCTIE
-        function voegToe() {
-            mandjeAantal++;
-            document.getElementById('cart-count').innerText = mandjeAantal;
+        function filter(t) {
+            t === 'all' ? toon(producten) : toon(producten.filter(p => p.type === t));
         }
 
-        // INITIALISATIE
-        window.onload = () => {
-            toonProducten(producten);
-        };
+        window.onload = () => toon(producten);
     </script>
-
 </body>
 </html>
