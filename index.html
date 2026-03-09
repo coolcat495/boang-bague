@@ -6,8 +6,8 @@
     <title>Bisou Bijoux | Edelsteen Sieraden</title>
     <style>
         :root {
-            --bg: #fdfaf6; /* Zacht crème/wit voor zen gevoel */
-            --accent: #c5b4a2; /* Rustige zandkleur */
+            --bg: #fdfaf6;
+            --accent: #c5b4a2;
             --text: #4a4a4a;
             --white: #ffffff;
         }
@@ -18,22 +18,26 @@
             font-family: 'Georgia', serif;
             background-color: var(--bg);
             color: var(--text);
-            line-height: 1.8;
+            line-height: 1.6;
         }
 
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 40px 10%;
+            padding: 20px 10%;
             background: var(--bg);
             letter-spacing: 2px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #eee;
         }
 
         .logo {
             font-size: 1.8rem;
             font-weight: 300;
-            text-transform: lowercase; /* Voor een zachtere look */
+            text-transform: lowercase;
             color: var(--accent);
         }
 
@@ -55,48 +59,71 @@
             margin: 0 auto;
         }
 
-        .hero h1 { font-weight: 200; font-size: 2.2rem; margin-bottom: 20px; }
+        .hero h1 { font-weight: 200; font-size: 2.2rem; margin-bottom: 10px; }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 40px auto;
             padding: 0 20px;
         }
 
         .card {
             background: var(--white);
-            padding: 40px 20px;
+            padding: 20px;
             text-align: center;
             border-radius: 8px;
-            transition: 0.5s;
+            transition: 0.4s;
             border: 1px solid #f0efeb;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.02); }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
 
-        .gem { font-size: 0.7rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; }
-        .name { font-size: 1.3rem; margin: 10px 0; font-weight: 300; }
-        .price { display: block; margin-bottom: 20px; font-style: italic; }
+        .img-container {
+            width: 100%;
+            height: 200px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .card:hover img { transform: scale(1.05); }
+
+        .gem { font-size: 0.7rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 10px; }
+        .name { font-size: 1.2rem; margin: 5px 0; font-weight: 300; }
+        .price { font-weight: bold; margin-bottom: 15px; color: #666; }
 
         button {
             background: none;
             border: 1px solid var(--accent);
-            padding: 8px 30px;
+            padding: 10px 20px;
             color: var(--text);
             cursor: pointer;
             font-family: inherit;
-            transition: 0.4s;
+            transition: 0.3s;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
         }
 
         button:hover { background: var(--accent); color: white; }
 
-        #cart-count { margin-left: 5px; font-weight: bold; color: var(--accent); }
+        #cart-count { font-weight: bold; color: var(--accent); }
 
+        .fade { animation: fadeIn 1.2s; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .fade { animation: fadeIn 1.5s; }
     </style>
 </head>
 <body>
@@ -109,24 +136,35 @@
             <li onclick="filter('armband')">Armbanden</li>
             <li onclick="filter('ketting')">Kettingen</li>
         </ul>
-        <div>Mandje <span id="cart-count">0</span></div>
+        <div>Mandje (<span id="cart-count">0</span>)</div>
     </nav>
 
     <section class="hero fade">
         <h1>Natuurlijke Balans</h1>
-        <p>Ontdek onze collectie met zorgvuldig gekozen edelsteentjes.</p>
+        <p>Handgemaakte sieraden met de kracht van de natuur.</p>
     </section>
 
     <div id="shop" class="grid fade"></div>
 
     <script>
         const producten = [
-            { naam: "Amethist Ring", type: "ring", prijs: 3, steen: "Lila Edelsteen" },
-            { naam: "Rozenkwarts Ketting", type: "ketting", prijs: 5, steen: "Roze Edelsteen" },
-            { naam: "Jade Armband", type: "armband", prijs: 4, steen: "Groene Edelsteen" },
-            { naam: "Maansteen Ring", type: "ring", prijs: 3, steen: "Witte Edelsteen" },
-            { naam: "Lapis Lazuli Ketting", type: "ketting", prijs: 5, steen: "Blauwe Edelsteen" },
-            { naam: "Tijgeroog Armband", type: "armband", prijs: 4, steen: "Bruine Edelsteen" }
+            // Ringen
+            { naam: "Amethist Ring", type: "ring", prijs: 15, steen: "Lila Edelsteen", img: "https://theethnicjewels.com" },
+            { naam: "Maansteen Ring", type: "ring", prijs: 18, steen: "Witte Edelsteen", img: "https://adina-stone.com" },
+            { naam: "Onyx Ring", type: "ring", prijs: 22, steen: "Zwarte Edelsteen", img: "https://www.leelavadee.nl" },
+            { naam: "Aquamarijn Ring", type: "ring", prijs: 20, steen: "Lichtblauwe Edelsteen", img: "https://www.kcjewels.nl" },
+
+            // Kettingen
+            { naam: "Rozenkwarts Ketting", type: "ketting", prijs: 25, steen: "Roze Edelsteen", img: "https://decadorn.com" },
+            { naam: "Lapis Lazuli Ketting", type: "ketting", prijs: 28, steen: "Blauwe Edelsteen", img: "https://solistial.com" },
+            { naam: "Citrien Hanger", type: "ketting", prijs: 30, steen: "Gele Edelsteen", img: "https://www.daisyjewellery.com" },
+            { naam: "Labradoriet Ketting", type: "ketting", prijs: 32, steen: "Grijze Glanssteen", img: "https://www.abeautifulstory.eu" },
+
+            // Armbanden
+            { naam: "Jade Armband", type: "armband", prijs: 12, steen: "Groene Edelsteen", img: "https://tahwa.nl" },
+            { naam: "Tijgeroog Armband", type: "armband", prijs: 14, steen: "Bruine Edelsteen", img: "https://www.goodies-shop.nl" },
+            { naam: "Aventurijn Kralen", type: "armband", prijs: 15, steen: "Zachtgroene Edelsteen", img: "https://jewelzbylau.nl" },
+            { naam: "Huliet Armband", type: "armband", prijs: 12, steen: "Witte Marmersteen", img: "https://sparkling-jewels.com" }
         ];
 
         let count = 0;
@@ -137,9 +175,14 @@
             lijst.forEach(p => {
                 shop.innerHTML += `
                     <div class="card">
-                        <div class="gem">${p.steen}</div>
-                        <div class="name">${p.naam}</div>
-                        <span class="price">€${p.prijs},-</span>
+                        <div class="img-container">
+                            <img src="${p.img}" alt="${p.naam}">
+                        </div>
+                        <div>
+                            <div class="gem">${p.steen}</div>
+                            <div class="name">${p.naam}</div>
+                            <div class="price">€${p.prijs},-</div>
+                        </div>
                         <button onclick="add()">In Mandje</button>
                     </div>
                 `;
